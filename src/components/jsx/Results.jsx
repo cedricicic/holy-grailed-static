@@ -221,6 +221,9 @@ const ResultsPage = () => {
           <p className="note2">
             Please click on "DOWNLOAD LISTINGS" to see them in details.
           </p>
+          <p className="note2">
+           Run this on your local machine by cloning the <a href= "https://github.com/cedricicic/Holy-grailed">repository</a> or help bring it online by getting in contact!!!
+          </p>
         </div>
 
         <div className="charts-container">

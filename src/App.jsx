@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, HashRouter, useLocation } from "react-router-dom";
 import Hero from "./components/jsx/Hero.jsx";
-import Navbar from "./components/jsx/navbar.jsx";
+import Navbar from "./components/jsx/Navbar.jsx";
 import Results from "./components/jsx/Results.jsx";
 import Feedback from './components/jsx/Feedback.jsx';
 import Read from './components/jsx/Read.jsx'

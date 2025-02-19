@@ -1,0 +1,267 @@
+/* Results Page Layout */
+.results-page {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.results-container {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Listing Info Panel */
+.listing-info-panel {
+  flex: 0 0 30%;
+  max-width: 30%;
+}
+
+.listing-card {
+  background: white;
+  overflow: hidden;
+}
+
+.listing-header {
+  padding: 1rem;
+}
+
+.listing-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.listing-details {
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.listing-details p {
+  margin: 0.5rem 0;
+}
+
+.listing-details span {
+  font-weight: 500;
+  color: #666;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column; 
+  align-items: stretch; 
+  gap: 0.5rem;
+}
+
+.primary-btn,
+.secondary-btn {
+  flex: 1; 
+  padding: 0.6rem;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center; 
+}
+
+.primary-btn {
+  background: #000000;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #000000;
+}
+
+.secondary-btn {
+  background: white;
+  color: #333;
+  border: 1px solid #505050;
+}
+
+.secondary-btn:hover {
+  background: white;
+}
+
+.charts-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.chart-card-carousel {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.chart-card {
+  flex: 1;
+  background: white;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-arrow {
+  font-size: 2rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left-arrow {
+  left: -20px;
+}
+
+.right-arrow {
+  right: -20px;
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 1rem;
+  gap: 0.5rem;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.indicator.active {
+  background: #000000;
+  transform: scale(1.2);
+}
+
+.value-analysis-container {
+  background: white;
+  padding: 1.5rem;
+}
+
+.value-analysis-container h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .results-container {
+    flex-direction: column;
+  }
+  
+  .listing-info-panel {
+    flex: auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
+  }
+  
+  .left-arrow {
+    left: -16px;
+  }
+  
+  .right-arrow {
+    right: -16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .results-page {
+    padding: 1rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+}
+
+.no-results, .insufficient-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  background: white;
+  padding: 2rem;
+}
+
+.seller-section {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+  font-size: 14px;
+}
+
+.seller-section p {
+  margin: 0;
+  color: #000;
+}
+
+.seller-section a {
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.follow-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.follow-btn:hover {
+  background-color: #333;
+}
+
+.note{
+  text-align: left;
+  font-weight: 800;
+}
+
+.note2{
+  text-align: left;
+}

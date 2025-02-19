@@ -6,7 +6,7 @@ import ValueAnalysis from "./charts/value-analysis.jsx";
 import BubbleChart from "./charts/bubble.jsx";
 import PriceTugOfWar from './charts/PriceTugOfWar.jsx';
 import Heatmap from './charts/heatmap.jsx';
-import "../css/resultspage.css";
+import "../css/ResultsPage.css";
 
 const ResultsPage = () => {
   const [scrapeResult, setScrapeResult] = useState(null);

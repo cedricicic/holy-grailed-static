@@ -7,19 +7,13 @@ import BubbleChart from "./charts/bubble.jsx";
 import PriceTugOfWar from './charts/PriceTugOfWar.jsx';
 import Heatmap from './charts/heatmap.jsx';
 import "../css/ResultsPage.css";
+import myData from '../results.json'
 
 const ResultsPage = () => {
-  const [scrapeResult, setScrapeResult] = useState(null);
+  const [scrapeResult, setScrapeResult] = useState(myData);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [buttonText, setButtonText] = useState("COPY LISTING");
   const [downloadButtonText, setDownloadButtonText] = useState("DOWNLOAD LISTINGS");
-
-  useEffect(() => {
-    fetch("/dist/results.json")
-      .then((response) => response.json())
-      .then((data) => setScrapeResult(data))
-      .catch((error) => console.error("Failed to load data: ", error));
-  }, []);
 
   const calculatePercentile = (value, array) => {
     const sorted = [...array].sort((a, b) => a - b);

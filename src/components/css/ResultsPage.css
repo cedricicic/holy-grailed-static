@@ -1,4 +1,3 @@
-/* Results Page Layout */
 .results-page {
   padding: 2rem;
   max-width: 1400px;
@@ -11,7 +10,6 @@
   gap: 2rem;
 }
 
-/* Listing Info Panel */
 .listing-info-panel {
   flex: 0 0 30%;
   max-width: 30%;
@@ -54,20 +52,20 @@
 
 .actions {
   display: flex;
-  flex-direction: column; 
-  align-items: stretch; 
+  flex-direction: column;
+  align-items: stretch;
   gap: 0.5rem;
 }
 
 .primary-btn,
 .secondary-btn {
-  flex: 1; 
+  flex: 1;
   padding: 0.6rem;
   border: none;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: center; 
+  text-align: center;
 }
 
 .primary-btn {
@@ -169,12 +167,11 @@
   color: #333;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 992px) {
   .results-container {
     flex-direction: column;
   }
-  
+
   .listing-info-panel {
     flex: auto;
     max-width: 100%;
@@ -187,11 +184,11 @@
     height: 32px;
     font-size: 1.5rem;
   }
-  
+
   .left-arrow {
     left: -16px;
   }
-  
+
   .right-arrow {
     right: -16px;
   }
@@ -201,13 +198,14 @@
   .results-page {
     padding: 1rem;
   }
-  
+
   .actions {
     flex-direction: column;
   }
 }
 
-.no-results, .insufficient-data {
+.no-results,
+.insufficient-data {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,6 +241,18 @@
   cursor: pointer;
 }
 
+.seller-info {
+  display: flex;
+  align-items: center; /* Align text and icon vertically */
+  gap: 8px; /* Space between text and icon */
+}
+
+.seller-info .icon {
+  height: 1em; /* Match text height */
+  width: auto; /* Maintain aspect ratio */
+  vertical-align: middle;
+}
+
 .follow-btn {
   background-color: #000;
   color: #fff;
@@ -257,11 +267,11 @@
   background-color: #333;
 }
 
-.note{
+.note {
   text-align: left;
   font-weight: 800;
 }
 
-.note2{
+.note2 {
   text-align: left;
 }

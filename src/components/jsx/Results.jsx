@@ -4,20 +4,25 @@ import NetworkChart from "./charts/network.jsx";
 import PriceHistogram from "./charts/price-histogram.jsx";
 import ValueAnalysis from "./charts/value-analysis.jsx";
 import BubbleChart from "./charts/bubble.jsx";
-import PriceTugOfWar from './charts/PriceTugOfWar.jsx';
-import Heatmap from './charts/heatmap.jsx';
+import PriceTugOfWar from "./charts/PriceTugOfWar.jsx";
+import Heatmap from "./charts/heatmap.jsx";
 import "../css/ResultsPage.css";
-import myData from '../results.json'
+import myData from "../results.json";
+import Git from "../../assets/git.png";
 
 const ResultsPage = () => {
   const [scrapeResult, setScrapeResult] = useState(myData);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [buttonText, setButtonText] = useState("COPY LISTING");
-  const [downloadButtonText, setDownloadButtonText] = useState("DOWNLOAD LISTINGS");
+  const [downloadButtonText, setDownloadButtonText] =
+    useState("DOWNLOAD LISTINGS");
 
   const calculatePercentile = (value, array) => {
     const sorted = [...array].sort((a, b) => a - b);
-    return ((sorted.filter((v) => v < value).length / sorted.length) * 100).toFixed(1);
+    return (
+      (sorted.filter((v) => v < value).length / sorted.length) *
+      100
+    ).toFixed(1);
   };
 
   const originalListing = scrapeResult?.originalListingDetails;
@@ -27,10 +32,14 @@ const ResultsPage = () => {
 
   if (originalListing && relatedListings) {
     const targetPrice = parseFloat(originalListing.price.replace("$", ""));
-    const marketPrices = relatedListings.map((item) => parseFloat(item.price.replace("$", "")));
+    const marketPrices = relatedListings.map((item) =>
+      parseFloat(item.price.replace("$", ""))
+    );
 
     const targetLikes = parseInt(originalListing.likesCount || 0, 10);
-    const marketLikes = relatedListings.map((item) => parseInt(item.likesCount || 0, 10));
+    const marketLikes = relatedListings.map((item) =>
+      parseInt(item.likesCount || 0, 10)
+    );
 
     const targetPhotos = originalListing.imageCount;
     const marketPhotos = relatedListings.map((item) => item.imageCount);
@@ -43,27 +52,50 @@ const ResultsPage = () => {
   const networkData = relatedListings?.map((item) => ({ labels: item.labels }));
 
   const chartComponents = [
-    <RadarChart pricePercentile={pricePercentile} likesPercentile={likesPercentile} photosPercentile={photosPercentile} />,
+    <RadarChart
+      pricePercentile={pricePercentile}
+      likesPercentile={likesPercentile}
+      photosPercentile={photosPercentile}
+    />,
     <NetworkChart data={networkData} />,
-    <PriceHistogram originalListing={originalListing} relatedListings={relatedListings} />,
-    <BubbleChart originalListing={originalListing} relatedListings={relatedListings} />,
-    <PriceTugOfWar originalListing={originalListing} relatedListings={relatedListings} />,
-    <Heatmap originalListing={originalListing} relatedListings={relatedListings} />,
+    <PriceHistogram
+      originalListing={originalListing}
+      relatedListings={relatedListings}
+    />,
+    <BubbleChart
+      originalListing={originalListing}
+      relatedListings={relatedListings}
+    />,
+    <PriceTugOfWar
+      originalListing={originalListing}
+      relatedListings={relatedListings}
+    />,
+    <Heatmap
+      originalListing={originalListing}
+      relatedListings={relatedListings}
+    />,
   ];
 
   const navigateCard = (direction) => {
     if (direction === "next") {
-      setActiveCardIndex((prevIndex) => (prevIndex === chartComponents.length - 1 ? 0 : prevIndex + 1));
+      setActiveCardIndex((prevIndex) =>
+        prevIndex === chartComponents.length - 1 ? 0 : prevIndex + 1
+      );
     } else {
-      setActiveCardIndex((prevIndex) => (prevIndex === 0 ? chartComponents.length - 1 : prevIndex - 1));
+      setActiveCardIndex((prevIndex) =>
+        prevIndex === 0 ? chartComponents.length - 1 : prevIndex - 1
+      );
     }
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(originalListing.link).then(() => {
-      setButtonText("Copied!");
-      setTimeout(() => setButtonText("COPY LISTING"), 2000);
-    }).catch((err) => console.error("Failed to copy: ", err));
+    navigator.clipboard
+      .writeText(originalListing.link)
+      .then(() => {
+        setButtonText("Copied!");
+        setTimeout(() => setButtonText("COPY LISTING"), 2000);
+      })
+      .catch((err) => console.error("Failed to copy: ", err));
   };
 
   const convertToCSV = (objectArray) => {
@@ -72,10 +104,14 @@ const ResultsPage = () => {
     const headers = Object.keys(objectArray[0]);
     const csvRows = [
       headers.join(","),
-      ...objectArray.map((row) => headers.map((fieldName) => {
-        const value = row[fieldName] ? String(row[fieldName]) : "";
-        return `"${value.replace(/"/g, '""')}"`;
-      }).join(","))
+      ...objectArray.map((row) =>
+        headers
+          .map((fieldName) => {
+            const value = row[fieldName] ? String(row[fieldName]) : "";
+            return `"${value.replace(/"/g, '""')}"`;
+          })
+          .join(",")
+      ),
     ];
 
     return csvRows.join("\n");
@@ -103,10 +139,14 @@ const ResultsPage = () => {
     setTimeout(() => setDownloadButtonText("DOWNLOAD LISTINGS"), 2000);
   };
 
-  if (!scrapeResult) return <div className="no-results">Loading results...</div>;
-  if (!originalListing || !relatedListings) return <div className="insufficient-data">Insufficient data to render the analysis.</div>;
-
- 
+  if (!scrapeResult)
+    return <div className="no-results">Loading results...</div>;
+  if (!originalListing || !relatedListings)
+    return (
+      <div className="insufficient-data">
+        Insufficient data to render the analysis.
+      </div>
+    );
 
   return (
     <div className="results-page">
@@ -114,7 +154,7 @@ const ResultsPage = () => {
         <div className="listing-info-panel">
           <div className="listing-card">
             <div className="listing-details">
-            <p className="price">{originalListing.labels.join(' x ')}</p>
+              <p className="price">{originalListing.labels.join(" x ")}</p>
               <p>{originalListing.description || "N/A"}</p>
               <p>
                 <span>Colour:</span> {originalListing.colour || "N/A"}
@@ -146,9 +186,16 @@ const ResultsPage = () => {
             <br></br>
 
             <div className="seller-section">
-              <p>
-                <strong>Made by Cedric Leung </strong>
-              </p>
+              <div className="seller-info">
+                <strong>Made by Cedric Leung</strong>
+                <a
+                  href="https://github.com/cedricicic/Holy-grailed"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={Git} alt="Github" className="icon" />
+                </a>
+              </div>
               <p>
                 Submit your feedback · <a href="#/feedback">Here</a>
               </p>

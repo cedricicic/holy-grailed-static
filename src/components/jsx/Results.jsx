@@ -15,7 +15,7 @@ const ResultsPage = () => {
   const [downloadButtonText, setDownloadButtonText] = useState("DOWNLOAD LISTINGS");
 
   useEffect(() => {
-    fetch("/public/results.json")
+    fetch("/results.json")
       .then((response) => response.json())
       .then((data) => setScrapeResult(data))
       .catch((error) => console.error("Failed to load data: ", error));

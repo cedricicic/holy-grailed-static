@@ -5,6 +5,7 @@ import Navbar from "./components/jsx/Navbar.jsx";
 import Results from "./components/jsx/Results.jsx";
 import Feedback from './components/jsx/Feedback.jsx';
 import Read from './components/jsx/Read.jsx'
+import './components/css/index.css'
 
 function Home() {
   return (

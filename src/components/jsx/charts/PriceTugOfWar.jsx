@@ -230,7 +230,7 @@ const PriceTugOfWar = ({ originalListing, relatedListings }) => {
 
   return (
     <>
-      <h2>Price Band</h2>
+      {/* <h2>Price Band</h2> */}
       <div
         className="chart-container"
         style={{

@@ -12,7 +12,7 @@ const RadarChart = ({ pricePercentile, likesPercentile, photosPercentile }) => {
 
   return (
     <>
-      <h2>Radar Chart</h2>
+      {/* <h2>Radar Chart</h2> */}
       <div
         id="radarChart"
         ref={radarChartRef}

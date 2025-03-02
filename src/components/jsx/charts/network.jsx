@@ -213,7 +213,7 @@ const NetworkChart = ({ data }) => {
   }, [data]);
 
   return(<> 
-        <h2>Network Chart</h2>
+        {/* <h2>Network Chart</h2> */}
   <div id="networkGraph" ref={networkGraphRef} style={{ width: '500px', height: '500px', margin: '0 auto' }}></div>
     </>
   ) 

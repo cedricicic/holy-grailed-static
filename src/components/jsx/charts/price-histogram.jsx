@@ -141,7 +141,7 @@ const StandardDeviationChart = ({ originalListing, relatedListings }) => {
 
   return (
     <>      
-      <h2>Price Distribution (Normal Curve)</h2>
+      {/* <h2>Price Distribution (Normal Curve)</h2> */}
       <div className="chart-container" style={{ width: '500px', height: '500px', margin: '0 auto' }}>
         <svg ref={svgRef}></svg>
         {mousePosition && (

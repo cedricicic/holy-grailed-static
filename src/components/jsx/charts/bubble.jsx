@@ -166,7 +166,7 @@ const BubbleChart = ({ originalListing, relatedListings }) => {
 
   return (
     <>
-      <h2>Price Distribution (Bubble Chart)</h2>
+      {/* <h2>Price Distribution (Bubble Chart)</h2> */}
       <div
         className="chart-container"
         style={{

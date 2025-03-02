@@ -5,6 +5,7 @@ import PriceHistogram from "./charts/price-histogram.jsx";
 import ValueAnalysis from "./charts/value-analysis.jsx";
 import BubbleChart from "./charts/bubble.jsx";
 import PriceTugOfWar from "./charts/PriceTugOfWar.jsx";
+import { motion, AnimatePresence } from "framer-motion";
 import Heatmap from "./charts/heatmap.jsx";
 import "../css/ResultsPage.css";
 import myData from "../results.json";
@@ -49,31 +50,72 @@ const ResultsPage = () => {
     photosPercentile = calculatePercentile(targetPhotos, marketPhotos);
   }
 
-  const networkData = relatedListings?.map((item) => ({ labels: item.labels }));
+  const networkData = relatedListings?.map((item) => ({
+    labels: item.labels,
+  }));
+
+  // Card wrapper component with Framer Motion
+  const ChartCard = ({ children, title }) => (
+    <motion.div 
+      className="chart-card-wrapper"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.1 }}
+      whileHover={{ 
+        scale: 1.02,
+        boxShadow: "0 10px 15px rgba(0,0,0,0.05)" 
+      }}
+    >
+      <motion.div 
+        className="chart-card-header"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      >
+        <h3>{title}</h3>
+      </motion.div>
+      <motion.div className="chart-card-content">
+        {children}
+      </motion.div>
+    </motion.div>
+  );
 
   const chartComponents = [
-    <RadarChart
-      pricePercentile={pricePercentile}
-      likesPercentile={likesPercentile}
-      photosPercentile={photosPercentile}
-    />,
-    <NetworkChart data={networkData} />,
-    <PriceHistogram
-      originalListing={originalListing}
-      relatedListings={relatedListings}
-    />,
-    <BubbleChart
-      originalListing={originalListing}
-      relatedListings={relatedListings}
-    />,
-    <PriceTugOfWar
-      originalListing={originalListing}
-      relatedListings={relatedListings}
-    />,
-    <Heatmap
-      originalListing={originalListing}
-      relatedListings={relatedListings}
-    />,
+    <ChartCard title="Radar Analysis">
+      <RadarChart
+        pricePercentile={pricePercentile}
+        likesPercentile={likesPercentile}
+        photosPercentile={photosPercentile}
+      />
+    </ChartCard>,
+    <ChartCard title="Network Analysis">
+      <NetworkChart data={networkData} />
+    </ChartCard>,
+    <ChartCard title="Price Distribution">
+      <PriceHistogram
+        originalListing={originalListing}
+        relatedListings={relatedListings}
+      />
+    </ChartCard>,
+    <ChartCard title="Market Position">
+      <BubbleChart
+        originalListing={originalListing}
+        relatedListings={relatedListings}
+      />
+    </ChartCard>,
+    <ChartCard title="Price Comparison">
+      <PriceTugOfWar 
+        originalListing={originalListing} 
+        relatedListings={relatedListings} 
+      />
+    </ChartCard>,
+    <ChartCard title="Market Heatmap">
+      <Heatmap 
+        originalListing={originalListing} 
+        relatedListings={relatedListings} 
+      />
+    </ChartCard>,
   ];
 
   const navigateCard = (direction) => {
@@ -102,6 +144,7 @@ const ResultsPage = () => {
     if (!objectArray || objectArray.length === 0) return "";
 
     const headers = Object.keys(objectArray[0]);
+
     const csvRows = [
       headers.join(","),
       ...objectArray.map((row) =>
@@ -124,14 +167,17 @@ const ResultsPage = () => {
     }
 
     const allListings = [originalListing, ...relatedListings];
+
     const csvContent = convertToCSV(allListings);
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+
     link.setAttribute("href", url);
     link.setAttribute("download", "listings.csv");
 
     setDownloadButtonText("Downloading...");
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -139,14 +185,17 @@ const ResultsPage = () => {
     setTimeout(() => setDownloadButtonText("DOWNLOAD LISTINGS"), 2000);
   };
 
-  if (!scrapeResult)
-    return <div className="no-results">Loading results...</div>;
-  if (!originalListing || !relatedListings)
+  if (!scrapeResult) {
+    return <div className="no-results">No results found.</div>;
+  }
+
+  if (!originalListing || !relatedListings) {
     return (
       <div className="insufficient-data">
         Insufficient data to render the analysis.
       </div>
     );
+  }
 
   return (
     <div className="results-page">
@@ -154,7 +203,7 @@ const ResultsPage = () => {
         <div className="listing-info-panel">
           <div className="listing-card">
             <div className="listing-details">
-              <p className="price">{originalListing.labels.join(" x ")}</p>
+            <p className="price">{originalListing.labels.join(' x ')}</p>
               <p>{originalListing.description || "N/A"}</p>
               <p>
                 <span>Colour:</span> {originalListing.colour || "N/A"}
@@ -228,43 +277,81 @@ const ResultsPage = () => {
 
         <div className="charts-container">
           <div className="chart-card-carousel">
-            <button
+            <motion.button
               className="carousel-arrow left-arrow"
               onClick={() => navigateCard("prev")}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
             >
               &#8249;
-            </button>
+            </motion.button>
 
             <div className="chart-card">
-              {chartComponents[activeCardIndex]}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeCardIndex}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {chartComponents[activeCardIndex]}
+                </motion.div>
+              </AnimatePresence>
+              
               <div className="carousel-indicators">
                 {chartComponents.map((_, index) => (
-                  <span
+                  <motion.span
                     key={index}
                     className={`indicator ${
                       index === activeCardIndex ? "active" : ""
                     }`}
                     onClick={() => setActiveCardIndex(index)}
+                    whileHover={{ scale: 1.5 }}
+                    whileTap={{ scale: 0.9 }}
+                    animate={index === activeCardIndex ? 
+                      { scale: 1.2, backgroundColor: 'black' } : 
+                      { scale: 1, backgroundColor: '#ccc' }
+                    }
+                    transition={{ duration: 0.2 }}
                   />
                 ))}
               </div>
             </div>
 
-            <button
+            <motion.button
               className="carousel-arrow right-arrow"
               onClick={() => navigateCard("next")}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
             >
               &#8250;
-            </button>
+            </motion.button>
           </div>
 
-          <div className="value-analysis-container">
-            <h2>Value Analysis</h2>
+          <motion.div 
+            className="value-analysis-container"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.6, 
+              delay: 0.3,
+              ease: "easeOut"
+            }}
+            // whileHover={{ boxShadow: "0 8px 16px rgba(0,0,0,0.1)" }}
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+            >
+              Value Analysis
+            </motion.h2>
             <ValueAnalysis
               originalListing={originalListing}
               relatedListings={relatedListings}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

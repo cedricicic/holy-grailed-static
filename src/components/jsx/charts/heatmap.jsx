@@ -166,7 +166,7 @@ const AuthenticityHeatMapSymmetrical = ({
 
   return (
     <>
-      <h2>Authenticity Comparison</h2>
+      {/* <h2>Authenticity Comparison</h2> */}
       <div
         className="chart-container"
         style={{
